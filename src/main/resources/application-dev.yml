@@ -1,0 +1,30 @@
+# 开发环境配置文件
+
+server:
+  port: 8088
+  max-http-header-size: 10240
+
+spring:
+  servlet:
+    multipart:
+      max-file-size: 50MB
+      max-request-size: 50MB
+  datasource:
+    druid:
+      driver-class-name: com.mysql.cj.jdbc.Driver     # 数据库驱动
+      url: jdbc:mysql://192.168.1.156:3306/quanztz_media_manange?serverTimezone=GMT%2B8&zeroDateTimeBehavior=CONVERT_TO_NULL&useUnicode=true&characterEncoding=UTF-8     # 数据库链接
+      username: root     # 数据库账号
+      password: 123456     # 数据库密码
+
+minio:
+  url: http://192.168.1.129:9000
+  access: minioadmin
+  secret-key: minioadmin
+  cut-picture-bucket-name: cut-picture-bucket
+  chunk_size: 5242880
+  expire_time: 600000
+  default-folder-zip: dataset-zip
+  default-folder-info: dataset-info
+
+
+

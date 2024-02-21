@@ -1,0 +1,10 @@
+
+spring:
+  profiles:
+    # 配置文件环境
+    active: prod
+  http:
+    encoding:
+      force: true
+      charset: utf-8
+      enabled: true

@@ -2,6 +2,7 @@ package com.cos.dao.impl;
 
 import com.cos.dao.GroupTagDao;
 import com.cos.entity.CosTag;
+import com.cos.entity.GroupTag;
 import com.cos.mapper.GroupTagMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -22,5 +23,17 @@ public class GroupTagDaoImpl implements GroupTagDao {
     @Override
     public List<CosTag> selectTagById(Long id) {
         return groupTagMapper.selectAllTagById(id);
+    }
+
+
+    @Override
+    public Integer setTags(Long tagId, Long groupId) {
+        return groupTagMapper.insert(GroupTag.builder().tagId(tagId).groupId(groupId).build());
+    }
+
+    @Override
+    public Integer deleteTags(Long id) {
+
+        return groupTagMapper.deleteById(id);
     }
 }

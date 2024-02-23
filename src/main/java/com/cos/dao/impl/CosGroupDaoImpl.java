@@ -37,4 +37,17 @@ public class CosGroupDaoImpl implements CosGroupDao {
     public Integer updateLikeCount(CosGroup cosGroup) {
         return cosGroupMapper.updateById(cosGroup);
     }
+
+    @Override
+    public Integer init(CosGroup info) {
+        return cosGroupMapper.insert(info);
+    }
+
+    @Override
+    public Integer updateBgImg(String objectUrl, Long id) {
+
+        return cosGroupMapper.updateById(CosGroup.builder()
+                .id(id)
+                .backgroundImg(objectUrl).build());
+    }
 }

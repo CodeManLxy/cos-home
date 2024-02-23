@@ -2,6 +2,7 @@ package com.cos.service;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.cos.entity.CosGroup;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  * @author luXinYu
@@ -26,4 +27,34 @@ public interface CosGroupService {
      * @return
      */
     Integer like(Long id, Integer type);
+
+    /**
+     * 新增组
+     * @param info
+     * @return
+     */
+    Integer init(CosGroup info);
+
+    /**
+     * 上传背景图
+     * @param file
+     * @param id
+     * @return
+     */
+    Integer uploadBgImg(MultipartFile file, Long id);
+
+    /**
+     * 设置标签
+     * @param tagId
+     * @param groupId
+     * @return
+     */
+    Integer setTags(Long tagId, Long groupId);
+
+    /**
+     * 删除标签
+     * @param id
+     * @return
+     */
+    Integer deleteTags(Long id);
 }

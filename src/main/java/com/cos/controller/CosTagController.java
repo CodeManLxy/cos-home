@@ -31,4 +31,16 @@ public class CosTagController {
     ) {
         return ResponseData.ok(tagService.list(tagName));
     }
+
+    /**
+     * 查询所有标签
+     *
+     * @param tagName
+     * @return
+     */
+    @RequestMapping(value = "/tag/insert", method = RequestMethod.GET)
+    public ResponseData insert(@RequestParam(name = "tag_name") String tagName
+    ) {
+        return ResponseData.ok(tagService.insert(tagName));
+    }
 }

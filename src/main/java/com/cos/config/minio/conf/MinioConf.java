@@ -33,8 +33,11 @@ public class MinioConf {
 
 
 
-    @Value("${minio.cut-picture-bucket-name}")
-    private String pictureCutBucketName;
+    @Value("${minio.back-ground-bucket-name}")
+    private String bgImgBucket;
+
+    @Value("${minio.cos-img-bucket-name}")
+    private String cosImg;
 
     /**
      * 分片大小

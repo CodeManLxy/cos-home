@@ -9,6 +9,8 @@ import com.cos.mapper.MediaMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 /**
  * @author luXinYu
  * @create 2024/2/21 15:18
@@ -25,5 +27,10 @@ public class MediaDaoImpl implements MediaDao {
         QueryWrapper<CosMedia> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("group_id", groupId);
         return mapper.selectPage(page, queryWrapper);
+    }
+
+    @Override
+    public Integer saveBatch(List<CosMedia> mediaList) {
+        return mapper.saveBatch(mediaList);
     }
 }

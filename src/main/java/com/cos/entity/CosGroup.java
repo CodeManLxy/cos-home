@@ -7,8 +7,7 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import java.io.Serializable;
 import java.util.List;
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.*;
 import lombok.experimental.Accessors;
 
 /**
@@ -23,6 +22,9 @@ import lombok.experimental.Accessors;
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
 @TableName("t_cos_group")
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class CosGroup implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -47,6 +49,8 @@ public class CosGroup implements Serializable {
 
     @TableField(exist = false)
     private List<CosTag> tagList;
+
+    private String groupDescription;
 
 
 }

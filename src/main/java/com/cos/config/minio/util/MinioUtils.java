@@ -10,6 +10,7 @@ import io.minio.http.Method;
 import io.minio.messages.Bucket;
 import io.minio.messages.Item;
 import io.minio.messages.Tags;
+import javafx.util.Pair;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -83,7 +84,7 @@ public class MinioUtils {
         try {
             // 判断存储桶是否存在
             if (StringUtils.isEmpty(bucketName)) {
-                bucketName = conf.getPictureCutBucketName();
+                bucketName = conf.getCosImg();
             } else {
                 // 判断存储桶是否存在
                 createBucket(bucketName);
@@ -111,7 +112,40 @@ public class MinioUtils {
 
 
     @Transactional
-    public MinIoResponse uploadFile(InputStream inputStream,String originalFilename,Long size, String bucketName, String modelVersion) throws Exception {
+    public MinIoResponse uploadFile(MultipartFile file, String bucketName, String object, Integer type) throws Exception {
+        // 判断上传文件是否为空
+        if (null == file || 0 == file.getSize()) {
+            throw new ServiceException(ExceptionEnum.FILE_EMPTY.getValue(), ExceptionEnum.FILE_EMPTY.getCode());
+        }
+        try {
+            // 判断存储桶是否存在
+            if (StringUtils.isEmpty(bucketName)) {
+                bucketName = conf.getCosImg();
+            } else {
+                // 判断存储桶是否存在
+                createBucket(bucketName);
+            }
+            //文件格式
+            String fileFormat = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf(".") + 1);
+            // 开始上传
+            client.putObject(PutObjectArgs.builder()
+                    .bucket(bucketName)
+                    .object(object)
+                    .stream(file.getInputStream(), file.getSize(), -1)
+                    .build());
+            String url = getObjectInfo(bucketName, object);
+            return MinIoResponse.builder()
+                    .objectUrl(url)
+                    .fileFormat(fileFormat)
+                    .build();
+        } catch (Exception e) {
+            log.error("上传文件失败：{}", e.getMessage());
+        }
+        return null;
+    }
+
+    @Transactional
+    public MinIoResponse uploadFile(InputStream inputStream, String originalFilename, Long size, String bucketName, String modelVersion) throws Exception {
         // 判断上传文件是否为空
         if (null == inputStream || 0 == size) {
             throw new ServiceException(ExceptionEnum.FILE_EMPTY.getValue(), ExceptionEnum.FILE_EMPTY.getCode());
@@ -119,7 +153,7 @@ public class MinioUtils {
         try {
             // 判断存储桶是否存在
             if (StringUtils.isEmpty(bucketName)) {
-                bucketName = conf.getPictureCutBucketName();
+                bucketName = conf.getCosImg();
             } else {
                 // 判断存储桶是否存在
                 createBucket(bucketName);
@@ -141,7 +175,7 @@ public class MinioUtils {
                     .build();
         } catch (Exception e) {
             log.error("上传文件失败：{}", e.getMessage());
-        }finally {
+        } finally {
             inputStream.close();
         }
         return null;
@@ -423,7 +457,7 @@ public class MinioUtils {
     }
 
     @SneakyThrows
-    public InputStream getObject(String bucketName,String objectName){
+    public InputStream getObject(String bucketName, String objectName) {
         return client.getObject(GetObjectArgs.builder()
                 .bucket(bucketName)
                 .object(objectName)
@@ -435,15 +469,15 @@ public class MinioUtils {
         try {
             // 判断存储桶是否存在
             if (StringUtils.isEmpty(scriptBucketName)) {
-                scriptBucketName = conf.getPictureCutBucketName();
+                scriptBucketName = conf.getCosImg();
             } else {
                 // 判断存储桶是否存在
                 createBucket(scriptBucketName);
             }
             // 文件名 新的文件名  版本_文件名.后缀名
-            String originalFilename =preName +  "_" + fileName ;
+            String originalFilename = preName + "_" + fileName;
             //文件格式
-            String fileFormat =fileName.substring(fileName.lastIndexOf(".") + 1);
+            String fileFormat = fileName.substring(fileName.lastIndexOf(".") + 1);
             // 开始上传
             client.putObject(PutObjectArgs.builder()
                     .bucket(scriptBucketName)
@@ -459,6 +493,15 @@ public class MinioUtils {
             log.error("上传文件失败：{}", e.getMessage());
             throw new ServiceException(ExceptionEnum.UPLOAD_ERROR.getValue(), ExceptionEnum.UPLOAD_ERROR.getCode());
         }
+    }
+
+    public String extObjectName(String objectUrl) {
+        String bucket = objectUrl.replaceAll(".*bucket=(.*?),.*", "$1");
+        return objectUrl.replaceAll(".*object=(.*?),.*", "$1");
+    }
+
+    public String extBucketName(String objectUrl) {
+        return objectUrl.replaceAll(".*bucket=(.*?),.*", "$1");
 
     }
 }

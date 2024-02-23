@@ -25,4 +25,10 @@ public class TagServiceImpl implements TagService {
 
         return tagDao.list(groupName);
     }
+
+    @Override
+    public Integer insert(String tagName) {
+
+        return tagDao.insert(tagName);
+    }
 }

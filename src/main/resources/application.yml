@@ -2,7 +2,7 @@
 spring:
   profiles:
     # 配置文件环境
-    active: prod
+    active: dev
   http:
     encoding:
       force: true

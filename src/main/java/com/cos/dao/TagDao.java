@@ -15,4 +15,11 @@ public interface TagDao {
      * @return
      */
     List<CosTag> list(String groupName);
+
+    /**
+     * 新增标签
+     * @param tagName
+     * @return
+     */
+    Integer insert(String tagName);
 }

@@ -26,4 +26,9 @@ public class TagDaoImpl implements TagDao {
         queryWrapper.like(StringUtils.isNotEmpty(tagName), "tag_name", tagName);
         return tagMapper.selectList(queryWrapper);
     }
+
+    @Override
+    public Integer insert(String tagName) {
+        return tagMapper.insert(CosTag.builder().tagName(tagName).build());
+    }
 }

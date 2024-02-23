@@ -31,4 +31,19 @@ public interface CosGroupDao {
      * @return
      */
     Integer updateLikeCount(CosGroup cosGroup);
+
+    /**
+     * 新增组信息
+     * @param info
+     * @return
+     */
+    Integer init(CosGroup info);
+
+    /**
+     * 更新背景图
+     * @param objectUrl
+     * @param id
+     * @return
+     */
+    Integer updateBgImg(String objectUrl, Long id);
 }

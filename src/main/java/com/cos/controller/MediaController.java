@@ -32,4 +32,18 @@ public class MediaController {
         return ResponseData.ok(mediaService.list(groupId, pageNum, pageSize));
     }
 
+    /**
+     * 上传
+     * @param files
+     * @param groupId
+     * @return
+     */
+    @RequestMapping(value = "/img/upload", method = RequestMethod.POST)
+    public ResponseData upload(@RequestParam(name = "files") MultipartFile[] files,
+                               @RequestParam(name = "group_id") Long groupId) {
+        return ResponseData.ok(mediaService.upload(files, groupId));
+    }
+
+
+
 }

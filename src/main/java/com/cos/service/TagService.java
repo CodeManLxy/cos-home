@@ -15,4 +15,11 @@ public interface TagService {
      * @return
      */
     List<CosTag> list(String tagName);
+
+    /**
+     * 新增标签
+     * @param tagName
+     * @return
+     */
+    Integer insert(String tagName);
 }

@@ -1,12 +1,11 @@
 package com.cos.controller;
 
 import com.cos.config.base.response.ResponseData;
+import com.cos.entity.CosGroup;
 import com.cos.service.CosGroupService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  * @author luXinYu
@@ -21,7 +20,7 @@ public class CosGroupController {
     private CosGroupService cosGroupService;
 
     /**
-     * 查询图片
+     * 组列表查询
      *
      * @param groupName
      * @return
@@ -35,14 +34,60 @@ public class CosGroupController {
     }
 
     /**
-     * 查询图片
+     * 点赞
      *
      * @param id
      * @return
      */
     @RequestMapping(value = "/group/like", method = RequestMethod.GET)
-    public ResponseData like(@RequestParam(name = "id") Long id, @RequestParam(name = "type")Integer type) {
+    public ResponseData like(@RequestParam(name = "id") Long id, @RequestParam(name = "type") Integer type) {
         return ResponseData.ok(cosGroupService.like(id, type));
+    }
+
+    /**
+     * 新增组
+     * @param info
+     * @return
+     */
+    @RequestMapping(value = "/group/init", method = RequestMethod.POST)
+    public ResponseData init(@RequestBody CosGroup info) {
+        return ResponseData.ok(cosGroupService.init(info));
+    }
+
+    /**
+     * 上传背景图
+     *
+     * @param file
+     * @return
+     */
+    @RequestMapping(value = "/group/upload_bg_img", method = RequestMethod.POST)
+    public ResponseData uploadBgImg(@RequestParam(name = "file") MultipartFile file,
+                                    Long id) {
+        return ResponseData.ok(cosGroupService.uploadBgImg(file, id));
+    }
+
+
+    /**
+     * 组标签设置
+     *
+     * @param tagId
+     * @param groupId
+     * @return
+     */
+    @RequestMapping(value = "/group/set_tags", method = RequestMethod.GET)
+    public ResponseData setTags(@RequestParam(name = "tag_id") Long tagId, @RequestParam("group_id") Long groupId) {
+        return ResponseData.ok(cosGroupService.setTags(tagId, groupId));
+    }
+
+    /**
+     * 组标签删除
+     *
+     * @param id
+     * @return
+     */
+    @RequestMapping(value = "/group/delete_tags", method = RequestMethod.GET)
+    public ResponseData deleteTags(@RequestParam(name = "id") Long id) {
+        return ResponseData.ok(cosGroupService.deleteTags(id));
     }
 
 }

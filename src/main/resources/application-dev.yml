@@ -11,10 +11,10 @@ spring:
       max-request-size: 50MB
   datasource:
     druid:
-      driver-class-name: com.mysql.cj.jdbc.Driver     # 数据库驱动
-      url: jdbc:mysql:///82.157.246.141:8848:3306/quanztz_media_manange?serverTimezone=GMT%2B8&zeroDateTimeBehavior=CONVERT_TO_NULL&useUnicode=true&characterEncoding=UTF-8     # 数据库链接
-      username: root     # 数据库账号
-      password: aDbnPK6c7dxeAfRw     # 数据库密码
+      driver-class-name:  com.mysql.cj.jdbc.Driver
+      url: jdbc:mysql://82.157.246.141:3306/cos_db?serverTimezone=GMT%2B8&zeroDateTimeBehavior=CONVERT_TO_NULL&useUnicode=true&characterEncoding=UTF-8     # 数据库链接
+      username: cos_db
+      password: XPrayCTr6nBkaAFz
 
 minio:
   url: http://82.157.246.141:9000

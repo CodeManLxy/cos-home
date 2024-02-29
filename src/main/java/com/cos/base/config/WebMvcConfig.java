@@ -1,6 +1,7 @@
 package com.cos.base.config;
 
-import com.quantz.common.interceptor.HeaderInterceptor;
+
+import com.cos.base.interceptor.HeaderInterceptor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;

@@ -23,8 +23,8 @@ import java.util.Map;
 public class UserController {
 
 
-    @Autowired
-    private UserService userService;
+//    @Autowired
+//    private UserService userService;
 
     @Autowired
     private TokenService tokenService;
@@ -38,7 +38,8 @@ public class UserController {
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public ResponseData login(@RequestBody User user) {
         Map<String, Object> map;
-        LoginUser login = userService.login(user);
+        //LoginUser login = userService.login(user);
+        LoginUser login = null;
         map = tokenService.createToken(login);
         map.put("User", login.getUser());
         map.put("Permissions", login.getPermissions());

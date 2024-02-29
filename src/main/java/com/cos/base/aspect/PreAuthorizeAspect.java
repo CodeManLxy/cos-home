@@ -1,10 +1,11 @@
 package com.cos.base.aspect;
 
 
-import com.quantz.common.annotation.RequiresLogin;
-import com.quantz.common.annotation.RequiresPermissions;
-import com.quantz.common.annotation.RequiresRoles;
-import com.quantz.common.utils.auth.AuthUtil;
+
+import com.cos.base.annotation.RequiresLogin;
+import com.cos.base.annotation.RequiresPermissions;
+import com.cos.base.annotation.RequiresRoles;
+import com.cos.base.utils.auth.AuthUtil;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -31,9 +32,9 @@ public class PreAuthorizeAspect {
     /**
      * 定义AOP签名 (切入所有使用鉴权注解的方法)
      */
-    public static final String POINTCUT_SIGN = " @annotation(com.quantz.common.annotation.RequiresLogin) || "
-            + "@annotation(com.quantz.common.annotation.RequiresPermissions) || "
-            + "@annotation(com.quantz.common.annotation.RequiresRoles)";
+    public static final String POINTCUT_SIGN = " @annotation(com.cos.base.annotation.RequiresLogin) || "
+            + "@annotation(com.cos.base.annotation.RequiresPermissions) || "
+            + "@annotation(com.cos.base.annotation.RequiresRoles)";
 
     /**
      * 声明AOP签名

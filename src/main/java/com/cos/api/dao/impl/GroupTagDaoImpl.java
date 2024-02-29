@@ -1,0 +1,39 @@
+package com.cos.api.dao.impl;
+
+import com.cos.api.dao.GroupTagDao;
+import com.cos.api.entity.CosTag;
+import com.cos.api.entity.GroupTag;
+import com.cos.api.mapper.GroupTagMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+
+import java.util.List;
+
+/**
+ * @author luXinYu
+ * @create 2024/2/21 16:26
+ */
+@Repository
+public class GroupTagDaoImpl implements GroupTagDao {
+
+
+    @Autowired
+    private GroupTagMapper groupTagMapper;
+
+    @Override
+    public List<CosTag> selectTagById(Long id) {
+        return groupTagMapper.selectAllTagById(id);
+    }
+
+
+    @Override
+    public Integer setTags(Long tagId, Long groupId) {
+        return groupTagMapper.insert(GroupTag.builder().tagId(tagId).groupId(groupId).build());
+    }
+
+    @Override
+    public Integer deleteTags(Long id) {
+
+        return groupTagMapper.deleteById(id);
+    }
+}
